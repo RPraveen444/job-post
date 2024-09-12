@@ -1,14 +1,13 @@
 package com.revature.jobpostservice.controller;
 
+
 import com.revature.jobpostservice.model.Job;
 import com.revature.jobpostservice.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +43,12 @@ public class JobController {
         List<Job> jobs = jobService.getAllJobs();
         return ResponseEntity.ok(jobs);
     }
+
+    @PostMapping("/{jobId}/apply/{userId}")
+    public void applyForJob(@PathVariable Long jobId, @PathVariable Long userId) {
+        jobService.applyForJob(jobId, userId);
+    }
+
 
 }
 

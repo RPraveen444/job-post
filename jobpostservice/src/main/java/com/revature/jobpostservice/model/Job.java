@@ -10,6 +10,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -55,8 +58,8 @@ public class Job {
     private String location;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @JoinColumn(name = "employer_id")
+    private Employer employer;
 
     @Column(name = "post_date")
     private Date postDate;
@@ -64,5 +67,20 @@ public class Job {
     @Column(name = "end_date")
     private Date endDate;
 
+    @ManyToMany
+    @JoinTable(
+            name = "job_applicants",
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> applicants = new HashSet<>();
+
+    public Set<User> getApplicants() {
+        return applicants;
+    }
+
+    public void setApplicants(Set<User> applicants) {
+        this.applicants = applicants;
+    }
 }
 
